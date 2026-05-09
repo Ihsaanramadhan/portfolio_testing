@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Ihsaan Ramadhan | Data Engineer</title>
+  <meta name="description" content="Data Engineer with 3+ years of experience building scalable data architectures and automated pipelines.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0f1a; --bg2: #131626; --bg3: #1a1e33;
+      --border: rgba(255,255,255,0.07);
+      --accent: #e8ff47; --accent2: #47ffcb;
+      --text: #f0f0f0; --muted: #8888aa; --muted2: #555577;
+    }
+    html { scroll-behavior: smooth; }
+    body { background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:1.7; cursor:none; overflow-x:hidden; }
+    @media (pointer: coarse) { body { cursor: auto; } #cursor, #cursor-ring { display: none !important; } a, button { cursor: pointer !important; } }
+
+    #cursor { position:fixed; width:10px; height:10px; background:var(--accent); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .2s,height .2s,background .2s; }
+    #cursor-ring { position:fixed; width:36px; height:36px; border:1px solid rgba(232,255,71,.4); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:width .25s,height .25s; }
+    body:has(a:hover) #cursor, body:has(button:hover) #cursor { width:16px; height:16px; background:var(--accent2); }
+    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width:52px; height:52px; }
+
+    body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 80% 60% at 10% 20%,rgba(104,51,255,.12),transparent),radial-gradient(ellipse 60% 50% at 90% 80%,rgba(71,255,203,.08),transparent),radial-gradient(ellipse 50% 40% at 50% 50%,rgba(232,255,71,.04),transparent); pointer-events:none; z-index:100; }
+
+    nav { position:fixed; top:0; left:0; right:0; z-index:500; display:flex; justify-content:space-between; align-items:center; padding:24px 48px; border-bottom:1px solid transparent; transition:border-color .3s,background .3s; }
+    nav.scrolled { background:rgba(10,10,10,.88); backdrop-filter:blur(12px); border-color:var(--border); }
+    .nav-logo { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-weight:800; font-size:18px; letter-spacing:-.5px; text-decoration:none; color:var(--text); }
+    .nav-logo span { color:var(--accent); }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a { color:var(--muted); text-decoration:none; font-size:11px; letter-spacing:.08em; text-transform:uppercase; transition:color .2s; }
+    .nav-links a:hover { color:var(--text); }
+    .nav-cta { background:var(--accent); color:#000; padding:8px 20px; border-radius:100px; font-size:12px; font-weight:600; letter-spacing:.05em; text-decoration:none; transition:background .2s,transform .2s; }
+    .nav-cta:hover { background:var(--accent2); transform:scale(1.04); }
+
+    #hero { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:0 48px 80px; position:relative; overflow:hidden; }
+    .hero-bg-text { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(100px,16vw,260px); font-weight:800; color:rgba(255,255,255,.02); white-space:nowrap; pointer-events:none; user-select:none; letter-spacing:-.04em; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--bg3); border:1px solid var(--border); border-radius:100px; padding:6px 14px; font-size:11px; color:var(--muted); letter-spacing:.06em; margin-bottom:32px; width:fit-content; opacity:0; animation:fadeUp .8s .2s forwards; }
+    .hero-badge-dot { width:7px; height:7px; border-radius:50%; background:#44ff88; box-shadow:0 0 8px #44ff88; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .hero-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(44px,7vw,108px); font-weight:800; line-height:.92; letter-spacing:-.04em; margin-bottom:32px; opacity:0; animation:fadeUp .9s .35s forwards; }
+    .hero-title .line2 { color:var(--accent); }
+    .hero-title .line3 { color:var(--muted2); }
+    .hero-bottom { display:flex; justify-content:space-between; align-items:flex-end; opacity:0; animation:fadeUp .8s .55s forwards; }
+    .hero-desc { max-width:400px; color:var(--muted); line-height:1.75; font-size:13px; }
+    .hero-desc strong { color:var(--text); font-weight:400; }
+    .hero-actions { display:flex; gap:12px; align-items:center; }
+    .btn-primary { background:var(--accent); color:#000; padding:14px 28px; border-radius:100px; font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-weight:700; font-size:13px; letter-spacing:.02em; text-decoration:none; transition:background .2s,transform .2s; display:inline-block; }
+    .btn-primary:hover { background:var(--accent2); transform:scale(1.04); }
+    .btn-ghost { color:var(--muted); font-size:12px; letter-spacing:.06em; text-decoration:none; display:flex; align-items:center; gap:8px; transition:color .2s; }
+    .btn-ghost:hover { color:var(--text); }
+    .hero-scroll { position:absolute; bottom:80px; right:48px; display:flex; flex-direction:column; align-items:center; gap:8px; color:var(--muted); font-size:10px; letter-spacing:.12em; text-transform:uppercase; opacity:0; animation:fadeIn 1s 1s forwards; }
+    .scroll-line { width:1px; height:60px; background:linear-gradient(to bottom,var(--muted),transparent); animation:scrollLine 1.5s infinite; }
+    @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    section { padding:120px 48px; }
+    .section-label { font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:var(--accent); margin-bottom:16px; display:flex; align-items:center; gap:12px; }
+    .section-label::before { content:''; display:inline-block; width:32px; height:1px; background:var(--accent); }
+
+    /* ABOUT */
+    #about { border-top:1px solid var(--border); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+    .about-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(32px,4vw,58px); font-weight:800; line-height:1.05; letter-spacing:-.03em; margin-bottom:28px; }
+    .about-title em { color:var(--accent); font-style:normal; }
+    .about-text { color:var(--muted); line-height:1.85; margin-bottom:14px; font-size:13px; }
+    .about-text strong { color:var(--text); font-weight:400; }
+    .award-badge { display:inline-flex; align-items:center; gap:10px; background:rgba(232,255,71,.07); border:1px solid rgba(232,255,71,.2); border-radius:8px; padding:12px 16px; margin-top:8px; }
+    .award-icon { font-size:18px; }
+    .award-text { font-size:11px; color:var(--accent); line-height:1.5; }
+    .about-stats { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .stat { background:var(--bg2); padding:28px; }
+    .stat-num { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:36px; font-weight:800; letter-spacing:-.04em; color:var(--accent); line-height:1; margin-bottom:6px; }
+    .stat-label { font-size:11px; color:var(--muted); letter-spacing:.06em; }
+
+    /* SKILLS */
+    #skills { border-top:1px solid var(--border); background:linear-gradient(135deg,var(--bg2) 0%,#181c35 100%); }
+    .skills-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(36px,4vw,56px); font-weight:800; letter-spacing:-.03em; margin-bottom:64px; line-height:1.05; }
+    .skills-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .skill-card { background:var(--bg2); padding:34px 30px; transition:background .25s; position:relative; overflow:hidden; }
+    .skill-card::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(232,255,71,.04),transparent); opacity:0; transition:opacity .3s; }
+    .skill-card:hover { background:var(--bg3); }
+    .skill-card:hover::after { opacity:1; }
+    .skill-icon { font-size:24px; margin-bottom:12px; }
+    .skill-name { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; font-weight:700; margin-bottom:8px; letter-spacing:-.01em; }
+    .skill-desc { font-size:11px; color:var(--muted); line-height:1.7; }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:5px; margin-top:14px; }
+    .skill-tag { background:var(--bg); border:1px solid var(--border); padding:3px 9px; border-radius:100px; font-size:10px; color:var(--muted); letter-spacing:.04em; }
+
+    /* PROJECTS */
+    #projects { border-top:1px solid var(--border); }
+    .projects-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(36px,4vw,56px); font-weight:800; letter-spacing:-.03em; line-height:1.05; margin-bottom:64px; }
+    .project-item { display:grid; grid-template-columns:56px 1fr auto auto; gap:24px; align-items:center; padding:30px 26px; background:var(--bg2); border:1px solid var(--border); border-radius:12px; text-decoration:none; color:var(--text); transition:background .2s,transform .2s,border-color .2s; margin-bottom:12px; position:relative; overflow:hidden; }
+    .project-item::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--accent); transform:scaleY(0); transition:transform .25s; }
+    .project-item:hover { background:var(--bg3); border-color:rgba(232,255,71,.15); transform:translateX(4px); }
+    .project-item:hover::before { transform:scaleY(1); }
+    .project-num { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; color:var(--muted2); font-weight:700; letter-spacing:.08em; }
+    .project-name { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:17px; font-weight:700; letter-spacing:-.02em; margin-bottom:5px; transition:color .2s; }
+    .project-item:hover .project-name { color:var(--accent); }
+    .project-desc { font-size:12px; color:var(--muted); line-height:1.65; }
+    .project-result { font-size:11px; color:var(--accent2); margin-top:6px; }
+    .project-stack { display:flex; flex-direction:column; gap:4px; align-items:flex-end; }
+    .project-tag { font-size:10px; padding:3px 9px; border-radius:100px; background:var(--bg); border:1px solid var(--border); color:var(--muted); letter-spacing:.04em; white-space:nowrap; }
+
+    /* EXPERIENCE */
+    #experience { border-top:1px solid var(--border); background:linear-gradient(225deg,var(--bg2) 0%,#1c142e 100%); }
+    .exp-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(36px,4vw,56px); font-weight:800; letter-spacing:-.03em; margin-bottom:64px; }
+    .exp-list { display:flex; flex-direction:column; }
+    .exp-item { display:grid; grid-template-columns:200px 1fr; gap:48px; padding:40px 0; border-bottom:1px solid var(--border); }
+    .exp-item:first-child { border-top:1px solid var(--border); }
+    .exp-period { color:var(--muted); font-size:12px; letter-spacing:.04em; margin-bottom:8px; }
+    .exp-badge { display:inline-block; background:rgba(232,255,71,.1); border:1px solid rgba(232,255,71,.2); color:var(--accent); font-size:10px; padding:3px 10px; border-radius:100px; letter-spacing:.06em; }
+    .exp-role { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; letter-spacing:-.02em; margin-bottom:4px; }
+    .exp-company { color:var(--accent); font-size:13px; margin-bottom:16px; }
+    .exp-bullets { list-style:none; display:flex; flex-direction:column; gap:8px; }
+    .exp-bullets li { font-size:12px; color:var(--muted); line-height:1.75; padding-left:16px; position:relative; }
+    .exp-bullets li::before { content:'—'; position:absolute; left:0; color:var(--muted2); }
+
+    /* TRAINING */
+    #training { border-top:1px solid var(--border); }
+    .training-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(36px,4vw,56px); font-weight:800; letter-spacing:-.03em; margin-bottom:64px; }
+    .training-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .training-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:28px; transition:border-color .2s,background .2s; }
+    .training-card:hover { border-color:rgba(232,255,71,.2); background:var(--bg3); }
+    .training-year { font-size:10px; color:var(--muted2); letter-spacing:.08em; margin-bottom:10px; }
+    .training-name { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px; font-weight:700; letter-spacing:-.01em; margin-bottom:6px; line-height:1.3; }
+    .training-org { font-size:11px; color:var(--accent); letter-spacing:.06em; margin-bottom:12px; }
+    .training-focus { font-size:11px; color:var(--muted); line-height:1.65; }
+
+    /* EDUCATION */
+    #education { border-top:1px solid var(--border); background:linear-gradient(315deg,var(--bg2) 0%,#1a2028 100%); }
+    .edu-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(36px,4vw,56px); font-weight:800; letter-spacing:-.03em; margin-bottom:64px; }
+    .edu-list { display:flex; flex-direction:column; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .edu-item { background:var(--bg2); padding:40px; display:grid; grid-template-columns:1fr auto; align-items:start; gap:32px; transition:background .2s; }
+    .edu-item:hover { background:var(--bg3); }
+    .edu-degree { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:20px; font-weight:700; letter-spacing:-.02em; margin-bottom:4px; }
+    .edu-school { color:var(--accent); font-size:13px; margin-bottom:4px; }
+    .edu-period { font-size:11px; color:var(--muted2); letter-spacing:.04em; margin-bottom:12px; }
+    .edu-courses { font-size:11px; color:var(--muted); line-height:1.7; }
+    .edu-gpa { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:28px; font-weight:800; color:var(--accent); letter-spacing:-.03em; text-align:right; }
+    .edu-gpa-label { font-size:10px; color:var(--muted); letter-spacing:.06em; text-align:right; margin-top:4px; }
+
+    /* CONTACT */
+    #contact { border-top:1px solid var(--border); }
+    .contact-inner { }
+    .contact-title { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:clamp(40px,5vw,68px); font-weight:800; letter-spacing:-.04em; line-height:.95; margin-bottom:24px; }
+    .contact-title em { color:var(--accent); font-style:normal; }
+    .contact-sub { color:var(--muted); font-size:13px; line-height:1.75; margin-bottom:32px; }
+    .contact-links { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .contact-card { background:var(--bg2); border:1px solid var(--border); border-radius:12px; padding:28px; text-decoration:none; transition:border-color .2s,background .2s,transform .2s; display:flex; flex-direction:column; }
+    .contact-card:hover { border-color:rgba(232,255,71,.2); background:var(--bg3); transform:translateY(-3px); }
+    .contact-card-icon { font-size:22px; margin-bottom:10px; }
+    .contact-card-title { font-size:13px; font-weight:700; color:var(--text); margin-bottom:4px; letter-spacing:-.01em; }
+    .contact-card-value { font-size:11px; color:var(--muted); line-height:1.5; margin-bottom:14px; }
+    .contact-card-cta { font-size:10px; color:var(--accent); letter-spacing:.08em; text-transform:uppercase; margin-top:auto; display:flex; align-items:center; gap:6px; }
+    .contact-card:hover .contact-card-cta { text-decoration:underline; }
+
+    footer { border-top:1px solid var(--border); padding:40px 48px; display:flex; justify-content:space-between; align-items:center; }
+    .footer-logo { font-family:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-weight:800; font-size:16px; color:var(--text); text-decoration:none; }
+    .footer-logo span { color:var(--accent); }
+    .footer-copy { color:var(--muted); font-size:11px; letter-spacing:.06em; }
+    .footer-socials { display:flex; gap:20px; }
+    .footer-socials a { color:var(--muted); text-decoration:none; font-size:11px; letter-spacing:.08em; text-transform:uppercase; transition:color .2s; }
+    .footer-socials a:hover { color:var(--accent); }
+
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .7s ease,transform .7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:900px){
+      nav{padding:20px 24px;}
+      .nav-links{display:none;}
+      #hero,section{padding-left:24px;padding-right:24px;}
+      #hero{padding-bottom:64px;}
+      .about-grid,.contact-inner{gap:48px;}
+      .skills-grid,.training-grid,.contact-links{grid-template-columns:1fr 1fr;}
+      .exp-item{grid-template-columns:1fr;gap:8px;}
+      .project-item{grid-template-columns:40px 1fr auto;}
+      .project-stack{display:none;}
+      footer{flex-direction:column;gap:24px;text-align:center;}
+      .hero-bottom{flex-direction:column;align-items:flex-start;gap:28px;}
+      .edu-item{grid-template-columns:1fr;}
+      .edu-gpa,.edu-gpa-label{text-align:left;}
+    }
+    @media(max-width:600px){
+      .skills-grid,.training-grid,.contact-links{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">MIR<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Let's talk</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-text">DATA</div>
+  <div class="hero-badge">
+    <span class="hero-badge-dot"></span>
+    Open to opportunities · Bekasi, ID
+  </div>
+  <h1 class="hero-title">
+    <span class="line1">Muhammad Ihsaan</span><br>
+    <span class="line2">Data</span><br>
+    <span class="line3">Engineer.</span>
+  </h1>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      <strong>3+ years</strong> building scalable data architectures and automated pipelines. Expert in <strong>Python, SQL & AWS</strong>. Maintaining <strong>99.9% system reliability</strong> in telco financial sectors.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-ghost"><span>Get in touch</span><span>→</span></a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="section-label">About me</div>
+      <h2 class="about-title">Turning raw data<br>into <em>reliable</em><br>infrastructure.</h2>
+      <p class="about-text">I'm a <strong>Data Engineer</strong> with deep expertise in building end-to-end ETL/ELT pipelines, managing large-scale database migrations, and architecting data lakes and warehouses on cloud platforms.</p>
+      <p class="about-text">Currently leading a <strong>7-member technical team</strong> at Huawei Tech Investment, supporting mission-critical telco-financial platforms with zero-downtime pipelines and real-time data replication.</p>
+      <div class="award-badge">
+        <span class="award-icon">🏆</span>
+        <span class="award-text">Outstanding Contributor – Assurance Managed Service Team<br>Huawei Tech Investment · H1 2024</span>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:.15s">
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Years experience</div></div>
+        <div class="stat"><div class="stat-num">1k+</div><div class="stat-label">Daily reports delivered</div></div>
+        <div class="stat"><div class="stat-num">99.9%</div><div class="stat-label">System availability</div></div>
+        <div class="stat"><div class="stat-num">20GB+</div><div class="stat-label">Data pipelines automated</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label reveal">Technical expertise</div>
+  <h2 class="skills-title reveal">My tech<br>stack.</h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🐍</div>
+      <div class="skill-name">Languages & Scripting</div>
+      <div class="skill-desc">Writing efficient code for data processing, automation, and scripting.</div>
+      <div class="skill-tags"><span class="skill-tag">Python</span><span class="skill-tag">Pandas</span><span class="skill-tag">PySpark</span><span class="skill-tag">SQL (Advanced)</span><span class="skill-tag">Bash</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.1s">
+      <div class="skill-icon">🔁</div>
+      <div class="skill-name">Data Engineering</div>
+      <div class="skill-desc">Architecting ETL/ELT pipelines, data models, and ingestion workflows at scale.</div>
+      <div class="skill-tags"><span class="skill-tag">ETL/ELT Design</span><span class="skill-tag">Data Modeling</span><span class="skill-tag">Oracle GoldenGate</span><span class="skill-tag">Data Lake</span><span class="skill-tag">Data Warehouse</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.2s">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-name">Cloud & Big Data</div>
+      <div class="skill-desc">Deploying and managing data workloads on AWS and Huawei cloud platforms.</div>
+      <div class="skill-tags"><span class="skill-tag">AWS S3</span><span class="skill-tag">AWS Glue</span><span class="skill-tag">EC2</span><span class="skill-tag">Huawei Cloud</span><span class="skill-tag">Distributed Systems</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.05s">
+      <div class="skill-icon">🗄️</div>
+      <div class="skill-name">Databases</div>
+      <div class="skill-desc">Tuning, migrating, and managing high-availability enterprise database systems.</div>
+      <div class="skill-tags"><span class="skill-tag">Oracle</span><span class="skill-tag">MySQL</span><span class="skill-tag">Huawei GaussDB</span><span class="skill-tag">SQL Tuning</span><span class="skill-tag">HA Architecture</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.15s">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-name">Infrastructure</div>
+      <div class="skill-desc">Managing network infrastructure, enterprise storage, and virtualization.</div>
+      <div class="skill-tags"><span class="skill-tag">Huawei Cloud</span><span class="skill-tag">Virtualization</span><span class="skill-tag">Enterprise Storage</span><span class="skill-tag">Routing & Switching</span></div>
+    </div>
+    <div class="skill-card reveal" style="transition-delay:.25s">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">DevOps & Automation</div>
+      <div class="skill-desc">Building CI/CD pipelines and automating workflows to eliminate manual overhead.</div>
+      <div class="skill-tags"><span class="skill-tag">CI/CD</span><span class="skill-tag">Cron Jobs</span><span class="skill-tag">Bash Scripting</span><span class="skill-tag">Monitoring</span><span class="skill-tag">Automation</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label reveal">Work</div>
+  <h2 class="projects-title reveal">Selected<br>projects.</h2>
+
+  <a href="#" class="project-item reveal">
+    <div class="project-num">01</div>
+    <div>
+      <div class="project-name">Scalable Data Ingestion & Automated Log Processing</div>
+      <div class="project-desc">Engineered an automated ETL solution to ingest, parse, and clean 5GB+ of daily unstructured transaction logs, with data validation logic for compliance and consistency.</div>
+      <div class="project-result">↑ Eliminated 100% of manual data handling</div>
+    </div>
+    <div class="project-stack"><span class="project-tag">Bash</span><span class="project-tag">Cron</span><span class="project-tag">Huawei Powercomm</span></div>
+  </a>
+
+  <a href="#" class="project-item reveal" style="transition-delay:.1s">
+    <div class="project-num">02</div>
+    <div>
+      <div class="project-name">Transaction KPI Analytics & Monitoring Dashboards</div>
+      <div class="project-desc">Developed complex SQL-based analytical queries to track real-time financial transaction KPIs and built automated monitoring workflows to detect data anomalies.</div>
+      <div class="project-result">↑ Increased operational visibility by 50%</div>
+    </div>
+    <div class="project-stack"><span class="project-tag">SQL</span><span class="project-tag">Huawei Powercomm</span></div>
+  </a>
+
+  <a href="#" class="project-item reveal" style="transition-delay:.2s">
+    <div class="project-num">03</div>
+    <div>
+      <div class="project-name">Enterprise Data Infrastructure Optimization</div>
+      <div class="project-desc">Orchestrated the upgrade and optimization of high-performance storage arrays across 10+ enterprise systems to support high-concurrency data processing workloads.</div>
+      <div class="project-result">↑ Significantly improved I/O performance for DB workloads</div>
+    </div>
+    <div class="project-stack"><span class="project-tag">OceanStor Dorado V6</span><span class="project-tag">Huawei SmartKit</span></div>
+  </a>
+
+  <a href="#" class="project-item reveal" style="transition-delay:.3s">
+    <div class="project-num">04</div>
+    <div>
+      <div class="project-name">Financial Data Migration & Replication Architecture</div>
+      <div class="project-desc">Led a mission-critical data migration for a telco-financial platform. Configured real-time data replication with complex schema mapping to ensure zero data loss across distributed systems.</div>
+      <div class="project-result">↑ Migrated terabytes with zero post-migration downtime or integrity issues</div>
+    </div>
+    <div class="project-stack"><span class="project-tag">Oracle GoldenGate</span><span class="project-tag">Huawei Powercomm</span><span class="project-tag">SQL</span></div>
+  </a>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label reveal">Career</div>
+  <h2 class="exp-title reveal">Experience.</h2>
+  <div class="exp-list">
+
+    <div class="exp-item reveal">
+      <div>
+        <div class="exp-period">Nov 2023 — Present</div>
+        <div class="exp-badge">Current</div>
+      </div>
+      <div>
+        <div class="exp-role">Database & IT Service Team Leader</div>
+        <div class="exp-company">Huawei Tech Investment · Full-time</div>
+        <ul class="exp-bullets">
+          <li>Architected end-to-end ETL pipelines delivering 1,000+ daily reports, ensuring data consistency across multiple financial and telco platforms.</li>
+          <li>Developed automated data ingestion scripts in Python for unstructured transaction data, improving BI data availability by 40%.</li>
+          <li>Managed high-throughput data replication using Oracle GoldenGate and Huawei Oceanprotect, ensuring zero data loss during mission-critical migrations.</li>
+          <li>Optimized SQL queries and database schemas to handle high-concurrency financial traffic, reducing processing latency.</li>
+          <li>Provided hands-on technical guidance to a 7-member team, focusing on system health, automation, and structured incident response.</li>
+          <li>Awarded "Outstanding Contributor – Assurance Managed Service Team" H1 2024.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal" style="transition-delay:.1s">
+      <div>
+        <div class="exp-period">Nov 2022 — Nov 2023</div>
+      </div>
+      <div>
+        <div class="exp-role">Database & IT Service Engineer</div>
+        <div class="exp-company">Huawei Tech Investment · Full-time</div>
+        <ul class="exp-bullets">
+          <li>Ensured 99.9% availability for IT telco applications supporting high-volume financial transactions, consistently exceeding SLA targets.</li>
+          <li>Collaborated with R&D to identify and resolve architectural bottlenecks in the data layer, reducing query latency and improving throughput.</li>
+          <li>Led resolution of critical (P1) data outages and synchronization failures, implementing permanent fixes to prevent data loss or corruption.</li>
+          <li>Executed 1,000+ technical service requests involving DB schema updates, data patching, and pipeline configurations.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal" style="transition-delay:.2s">
+      <div>
+        <div class="exp-period">Oct 2019 — Oct 2022</div>
+      </div>
+      <div>
+        <div class="exp-role">Junior Network Engineer</div>
+        <div class="exp-company">Aplikanusa Lintasarta · Full-time</div>
+        <ul class="exp-bullets">
+          <li>Achieved MTTR under 1 hour for high-priority network incidents in a managed services environment supporting enterprise clients.</li>
+          <li>Operated and monitored multi-vendor network infrastructure across banking and corporate customer sites.</li>
+          <li>Contributed to network improvement projects that increased service resilience and performance for critical business applications.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training">
+  <div class="section-label reveal">Certifications</div>
+  <h2 class="training-title reveal">Training &<br>certifications.</h2>
+  <div class="training-grid">
+    <div class="training-card reveal">
+      <div class="training-year">2022</div>
+      <div class="training-name">Fortinet Network Security Expert (NSE 1 & NSE 2)</div>
+      <div class="training-org">FORTINET</div>
+      <div class="training-focus">Infrastructure security and data protection best practices.</div>
+    </div>
+    <div class="training-card reveal" style="transition-delay:.1s">
+      <div class="training-year">2021</div>
+      <div class="training-name">AWS Cloud Foundation</div>
+      <div class="training-org">DIGITALENT KOMINFO</div>
+      <div class="training-focus">Cloud architecture, S3 storage, and EC2 computing environments.</div>
+    </div>
+    <div class="training-card reveal" style="transition-delay:.2s">
+      <div class="training-year">2021</div>
+      <div class="training-name">DevOps with IBM</div>
+      <div class="training-org">DICODING</div>
+      <div class="training-focus">CI/CD pipelines, automation, and agile software development life cycles.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label reveal">Academic background</div>
+  <h2 class="edu-title reveal">Education.</h2>
+  <div class="edu-list reveal">
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree">Bachelor of Computer Science</div>
+        <div class="edu-school">Bina Nusantara University</div>
+        <div class="edu-period">2020 – 2022</div>
+        <div class="edu-courses">Database Systems · Algorithm Design · Data Structures · Distributed Systems</div>
+      </div>
+      <div>
+        <div class="edu-gpa">3.39</div>
+        <div class="edu-gpa-label">GPA / 4.00</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div>
+        <div class="edu-degree">Diploma of Telecommunication Engineering</div>
+        <div class="edu-school">Politeknik Negeri Jakarta</div>
+        <div class="edu-period">2016 – 2019</div>
+        <div class="edu-courses">Network Infrastructure · Data Communication Protocols</div>
+      </div>
+      <div>
+        <div class="edu-gpa">3.08</div>
+        <div class="edu-gpa-label">GPA / 4.00</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <div class="reveal">
+      <div class="section-label">Get in touch</div>
+      <h2 class="contact-title">Let's build<br>something<br><em>great.</em></h2>
+      <p class="contact-sub">Have a project in mind, want to discuss data infrastructure, or explore working together? I'd love to hear from you.</p>
+      <div class="contact-links">
+        <a href="mailto:mihsaan.r@gmail.com" class="contact-card">
+          <div class="contact-card-icon">✉️</div>
+          <div class="contact-card-title">Email</div>
+          <div class="contact-card-value">mihsaan.r@gmail.com</div>
+          <div class="contact-card-cta">Click me →</div>
+        </a>
+        <a href="https://www.linkedin.com/in/muhammad-ihsaan-ramadhan" target="_blank" class="contact-card">
+          <div class="contact-card-icon">💼</div>
+          <div class="contact-card-title">LinkedIn</div>
+          <div class="contact-card-value">muhammad-ihsaan-ramadhan</div>
+          <div class="contact-card-cta">Click me →</div>
+        </a>
+        <a href="https://wa.me/6289654779306" target="_blank" class="contact-card">
+          <div class="contact-card-icon">📱</div>
+          <div class="contact-card-title">WhatsApp</div>
+          <div class="contact-card-value">+62 896-5477-9306</div>
+          <div class="contact-card-cta">Click me →</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">MIR<span>.</span></a>
+  <span class="footer-copy">© 2026 Muhammad Ihsaan Ramadhan · Data Engineer</span>
+  <div class="footer-socials">
+    <a href="https://www.linkedin.com/in/muhammad-ihsaan-ramadhan" target="_blank">LinkedIn</a>
+    <a href="mailto:mihsaan.r@gmail.com">Email</a>
+  </div>
+</footer>
+
+<script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  function animRing(){rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+  animRing();
+  const navbar=document.getElementById('navbar');
+  window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>40));
+  const reveals=document.querySelectorAll('.reveal');
+  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.1});
+  reveals.forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
